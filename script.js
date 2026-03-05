@@ -1,4 +1,4 @@
-// const { createElement } = require("react");
+ 
 // console.log('im js');
 
 const loadLesson=  () => {
@@ -94,10 +94,7 @@ const levelContainer = document.getElementById("level-container");
 levelContainer.innerHTML = "" ;
 
 // 2. get into everyLesson 
-
-
 for(let lesson of lessons) {
-
     // 3. CreateElements
     const btnDiv = document.createElement("div");
     btnDiv.innerHTML = `

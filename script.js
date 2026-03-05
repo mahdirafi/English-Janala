@@ -1,5 +1,20 @@
- 
+ const createElement = (arr) => {
+ const htmlElements = arr.map((ele) => `<span class="btn">${ele}</span>`);
+  return (htmlElements.join(" "));
+};
 // console.log('im js');
+// spinner
+const manageSpinner = (status) => {
+    if (status == true){
+        document.getElementById("spinner").classList.remove("hidden");
+        document.getElementById("word-container").classList.add("hidden");
+    }else{
+        
+        document.getElementById("word-container").classList.remove("hidden");
+        document.getElementById("spinner").classList.add("hidden");
+    }
+ };
+
 
 const loadLesson=  () => {
     fetch("https://openapi.programming-hero.com/api/levels/all") // promise of response
@@ -14,6 +29,7 @@ const removeActive = () => {
 };
 
 const loadLevelWord = (id) => {
+    manageSpinner(true);
     // console.log(id);
     const url =`https://openapi.programming-hero.com/api/level/${id}` ;
     // console.log(url);
@@ -38,7 +54,33 @@ const loadWordDetail =async (id) => {
 const displayWordDetails = (word) => {
     console.log(word);
     const detailsBox = document.getElementById("details-container");
-    detailsBox.innerHTML = "hello";
+    detailsBox.innerHTML = `
+    <div  class="space-y-5">
+
+    <div class="">
+        <h2 class="text-2xl font-bold">${word.word} (<i class="fa-solid fa-microphone-lines"></i>:${word.meaning})</h2>
+    </div>
+    <div class="">
+        <h2 class="font-bold">Meaning</h2>
+        <p class="  font-semibold"> ${word.meaning}</p>
+    </div>
+     
+    <div class="">
+        <h2 class="font-bold">Example</h2>
+        <p class="font-semibold"> ${word.sentence}</p>
+    </div>
+ 
+    <div class="">
+        <h2 class="font-bold">সমার্থক শব্দ গুলো</h2>
+   
+    <div class=""> ${createElement(word.synonyms)} </div>
+     </div>
+    <button class="btn btn-primary rounded-md" >Complete Learning</button>
+    
+</div>
+    
+    
+    `;
     // console.log(object);
     document.getElementById("word_modal").showModal();
 };
@@ -54,7 +96,7 @@ const displayWords = (words) => {
             <p class="font-bold text-2xl text-black-200">এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।</p>
             <h2 class="font-bold text-4xl">নেক্সট Lesson এ যান |</h2>
         </div>
-        `;
+        `;manageSpinner(false);
         return;
     }
 
@@ -77,7 +119,7 @@ const displayWords = (words) => {
         `;
         wordContainer.append(card);
     });
-
+    manageSpinner(false) ;
 };
 
 // "id": 4,

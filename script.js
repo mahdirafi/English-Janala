@@ -3,6 +3,11 @@
   return (htmlElements.join(" "));
 };
 // console.log('im js');
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
 // spinner
 const manageSpinner = (status) => {
     if (status == true){
@@ -113,7 +118,7 @@ const displayLevelWords = (words) => {
 
                 <button onclick="loadWordDetail(${word.id})" class="btn bg-[#1a97ff15] hover:bg-[#1a97ff60]"><i class="fa-solid fa-circle-info"></i></button>
 
-                <button class="btn bg-[#1a97ff15] hover:bg-[#1a97ff60]"><i class="fa-solid fa-volume-high"></i></button>
+                <button onclick="pronounceWord('${word.word}')" class="btn bg-[#1a97ff15] hover:bg-[#1a97ff60]"><i class="fa-solid fa-volume-high"></i></button>
             </div>
         </div>
         `;
@@ -169,7 +174,7 @@ document.getElementById("btn-search").addEventListener("click" ,  () => {
         console.log(allWords);
         const filterWords = allWords.filter((word) => 
         word.word.toLowerCase().includes(searchValue));
-        
+
         displayLevelWords(filterWords);
     });
 });

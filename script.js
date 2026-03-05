@@ -2,12 +2,12 @@
  const htmlElements = arr.map((ele) => `<span class="btn">${ele}</span>`);
   return (htmlElements.join(" "));
 };
-// console.log('im js');
+ 
 function pronounceWord(word) {
   const utterance = new SpeechSynthesisUtterance(word);
-  utterance.lang = "en-EN"; // English
+  utterance.lang = "en-US"; // English
   window.speechSynthesis.speak(utterance);
-}
+};
 // spinner
 const manageSpinner = (status) => {
     if (status == true){
